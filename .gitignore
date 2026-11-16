@@ -1,0 +1,4 @@
+kilder/*
+!kilder/.gitkeep
+generert/
+__pycache__/

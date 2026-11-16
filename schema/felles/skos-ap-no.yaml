@@ -1,0 +1,413 @@
+id: https://w3id.org/udi/regelverksmodell/felles/skos-ap-no
+name: skos_ap_no
+title: SKOS-AP-NO-Begrep (LinkML)
+description: >-
+  LinkML-gjengivelse av SKOS-AP-NO-Begrep v2.0.x, Digdirs standard for
+  beskrivelse av begreper. Brukes til å registrere begrepene i
+  regelverksmodellen og eksportere dem til Felles begrepskatalog.
+  Kilde: https://data.norge.no/specification/skos-ap-no-begrep
+  Merk: Spesifikasjonen bruker rdf:langString for flerspråklig tekst. LinkML
+  har ingen egen type for dette, så tekst modelleres her med klassen
+  SpraakTekst (nb, nn, en). Eksport til Turtle med språkkoder gjøres med et
+  eget konverteringsskript.
+version: 0.1.0
+license: https://creativecommons.org/licenses/by/4.0/
+status: draft
+annotations:
+  spesifikasjonsversjon: 2.0.15
+  basis_uri_status: Foreløpig basis-URI. Endelig URI bestemmes før publisering.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  skosapno: https://w3id.org/udi/regelverksmodell/felles/skos-ap-no/
+  begrep: https://w3id.org/udi/regelverksmodell/begrep/
+  skos: http://www.w3.org/2004/02/skos/core#
+  skosno: https://data.norge.no/vocabulary/skosno#
+  euvoc: http://publications.europa.eu/ontology/euvoc#
+  dct: http://purl.org/dc/terms/
+  dcat: http://www.w3.org/ns/dcat#
+  vcard: http://www.w3.org/2006/vcard/ns#
+  org: http://www.w3.org/ns/org#
+  owl: http://www.w3.org/2002/07/owl#
+  adms: http://www.w3.org/ns/adms#
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  xkos: http://rdf-vocabulary.ddialliance.org/xkos#
+  relkilde: https://data.norge.no/vocabulary/relationship-with-source-type#
+  malgruppe: https://data.norge.no/vocabulary/audience-type#
+  conceptstatus: http://publications.europa.eu/resource/authority/concept-status/
+
+default_prefix: skosapno
+default_range: string
+
+imports:
+  - linkml:types
+
+classes:
+
+  Begrepssamling:
+    title: Begrepssamling
+    class_uri: skos:Collection
+    tree_root: true
+    description: En samling begreper, for eksempel alle begreper i ett fagområde.
+    slots:
+      - id
+      - navn
+      - beskrivelse
+      - publisert_av
+      - kontaktpunkt
+      - begreper
+    slot_usage:
+      kontaktpunkt:
+        required: true
+
+  Begrep:
+    title: Begrep
+    class_uri: skos:Concept
+    description: En kunnskapsenhet som er dannet gjennom abstraksjon fra egenskapene til en mengde objekter.
+    slots:
+      - id
+      - anbefalt_term
+      - tillatt_term
+      - frarad_term
+      - definisjon
+      - merknad
+      - eksempel
+      - fagomrade
+      - verdiomrade
+      - datastrukturterm
+      - kontaktpunkt
+      - publisert_av
+      - ansvarlig_virksomhet
+      - gyldig_fra
+      - gyldig_til
+      - opprettet
+      - sist_oppdatert
+      - status
+      - versjonsnummer
+      - versjonsnote
+      - erstattes_av
+      - erstatter
+      - relatert_til
+      - se_ogsa
+      - eksakt_samsvar
+      - naert_samsvar
+      - generaliserer
+      - spesialiserer
+      - inneholder
+      - er_del_av
+      - generiske_relasjoner
+      - partitive_relasjoner
+      - assosiative_relasjoner
+
+  Definisjon:
+    title: Definisjon
+    class_uri: euvoc:XlNote
+    description: En definisjon av begrepet, med kilde og målgruppe.
+    slots:
+      - tekst
+      - forhold_til_kilde
+      - kilde
+      - malgruppe
+
+  GeneriskBegrepsrelasjon:
+    title: Generisk begrepsrelasjon
+    class_uri: skosno:GenericConceptRelation
+    description: >-
+      Over- og underordning mellom begreper (slag av). Oppgi enten overbegrep
+      eller underbegrep fra begrepet relasjonen står på.
+    slots:
+      - overbegrep
+      - underbegrep
+      - inndelingskriterium
+
+  PartitivBegrepsrelasjon:
+    title: Partitiv begrepsrelasjon
+    class_uri: skosno:PartitiveConceptRelation
+    description: Del–helhet-relasjon mellom begreper.
+    slots:
+      - delbegrep
+      - helhetsbegrep
+      - inndelingskriterium
+
+  AssosiativBegrepsrelasjon:
+    title: Assosiativ begrepsrelasjon
+    class_uri: skosno:AssociativeConceptRelation
+    description: Annen tematisk relasjon mellom begreper, med en navngitt rolle.
+    slots:
+      - til_begrep
+      - relasjonsrolle
+
+  Kontaktpunkt:
+    title: Kontaktpunkt
+    class_uri: vcard:Organization
+    slots:
+      - epost
+      - telefon
+
+  SpraakTekst:
+    title: Språktekst
+    description: Tekst på ett eller flere språk. Erstatter rdf:langString.
+    attributes:
+      nb:
+        title: bokmål
+      nn:
+        title: nynorsk
+      en:
+        title: engelsk
+
+slots:
+
+  # --- identifikasjon og metadata ---
+  id:
+    identifier: true
+    range: uriorcurie
+    slot_uri: dct:identifier
+    title: identifikator
+  navn:
+    range: SpraakTekst
+    inlined: true
+    required: true
+    slot_uri: dct:title
+  beskrivelse:
+    range: SpraakTekst
+    inlined: true
+    slot_uri: dct:description
+  publisert_av:
+    range: uriorcurie
+    required: true
+    slot_uri: dct:publisher
+    description: URI til virksomheten i Enhetsregisteret.
+  ansvarlig_virksomhet:
+    range: uriorcurie
+    slot_uri: dct:creator
+  kontaktpunkt:
+    range: Kontaktpunkt
+    multivalued: true
+    inlined_as_list: true
+    slot_uri: dcat:contactPoint
+  begreper:
+    range: Begrep
+    multivalued: true
+    inlined_as_list: true
+    required: true
+    slot_uri: skos:member
+
+  # --- termer og definisjon ---
+  anbefalt_term:
+    range: SpraakTekst
+    inlined: true
+    required: true
+    slot_uri: skos:prefLabel
+  tillatt_term:
+    range: SpraakTekst
+    multivalued: true
+    inlined_as_list: true
+    slot_uri: skos:altLabel
+  frarad_term:
+    title: frarådd term
+    range: SpraakTekst
+    multivalued: true
+    inlined_as_list: true
+    slot_uri: skos:hiddenLabel
+  definisjon:
+    range: Definisjon
+    multivalued: true
+    inlined_as_list: true
+    required: true
+    slot_uri: euvoc:xlDefinition
+  tekst:
+    range: SpraakTekst
+    inlined: true
+    required: true
+    slot_uri: rdf:value
+  forhold_til_kilde:
+    range: ForholdTilKilde
+    slot_uri: skosno:relationshipWithSource
+  kilde:
+    multivalued: true
+    slot_uri: dct:source
+    description: >-
+      URI til kilden, eller kilde-ID fra kilderegisteret i regelverksmodellen
+      (for eksempel utl-40-1).
+  malgruppe:
+    title: målgruppe
+    range: Malgruppe
+    slot_uri: dct:audience
+  merknad:
+    range: SpraakTekst
+    multivalued: true
+    inlined_as_list: true
+    slot_uri: skos:scopeNote
+  eksempel:
+    range: SpraakTekst
+    multivalued: true
+    inlined_as_list: true
+    slot_uri: skos:example
+  fagomrade:
+    title: fagområde
+    multivalued: true
+    slot_uri: dct:subject
+  verdiomrade:
+    title: verdiområde
+    multivalued: true
+    slot_uri: skosno:valueRange
+  datastrukturterm:
+    multivalued: true
+    slot_uri: skosno:dataStructureLabel
+
+  # --- gyldighet og versjon ---
+  gyldig_fra:
+    range: date
+    slot_uri: euvoc:startDate
+  gyldig_til:
+    range: date
+    slot_uri: euvoc:endDate
+  opprettet:
+    range: date
+    slot_uri: dct:created
+  sist_oppdatert:
+    range: date
+    slot_uri: dct:modified
+  status:
+    range: BegrepStatus
+    slot_uri: euvoc:status
+  versjonsnummer:
+    slot_uri: owl:versionInfo
+  versjonsnote:
+    range: SpraakTekst
+    multivalued: true
+    inlined_as_list: true
+    slot_uri: adms:versionNotes
+
+  # --- enkle relasjoner til andre begreper ---
+  erstattes_av:
+    range: Begrep
+    multivalued: true
+    slot_uri: dct:isReplacedBy
+  erstatter:
+    range: Begrep
+    multivalued: true
+    slot_uri: dct:replaces
+  relatert_til:
+    range: Begrep
+    multivalued: true
+    slot_uri: skos:related
+  se_ogsa:
+    title: se også
+    range: Begrep
+    multivalued: true
+    slot_uri: rdfs:seeAlso
+  eksakt_samsvar:
+    range: uriorcurie
+    multivalued: true
+    slot_uri: skos:exactMatch
+    description: Begrep i en annen begrepskatalog med samme betydning.
+  naert_samsvar:
+    title: nært samsvar
+    range: uriorcurie
+    multivalued: true
+    slot_uri: skos:closeMatch
+  generaliserer:
+    range: Begrep
+    multivalued: true
+    slot_uri: xkos:generalizes
+  spesialiserer:
+    range: Begrep
+    multivalued: true
+    slot_uri: xkos:specializes
+  inneholder:
+    range: Begrep
+    multivalued: true
+    slot_uri: xkos:hasPart
+  er_del_av:
+    range: Begrep
+    multivalued: true
+    slot_uri: xkos:isPartOf
+
+  # --- relasjonsobjekter ---
+  generiske_relasjoner:
+    range: GeneriskBegrepsrelasjon
+    multivalued: true
+    inlined_as_list: true
+    slot_uri: skosno:hasGenericConceptRelation
+  partitive_relasjoner:
+    range: PartitivBegrepsrelasjon
+    multivalued: true
+    inlined_as_list: true
+    slot_uri: skosno:hasPartitiveConceptRelation
+  assosiative_relasjoner:
+    range: AssosiativBegrepsrelasjon
+    multivalued: true
+    inlined_as_list: true
+    slot_uri: skosno:isFromConceptIn
+  overbegrep:
+    range: Begrep
+    multivalued: true
+    slot_uri: skosno:hasGenericConcept
+  underbegrep:
+    range: Begrep
+    multivalued: true
+    slot_uri: skosno:hasSpecificConcept
+  delbegrep:
+    range: Begrep
+    multivalued: true
+    slot_uri: skosno:hasPartitiveConcept
+  helhetsbegrep:
+    range: Begrep
+    multivalued: true
+    slot_uri: skosno:hasComprehensiveConcept
+  inndelingskriterium:
+    range: SpraakTekst
+    multivalued: true
+    inlined_as_list: true
+    slot_uri: dct:description
+  til_begrep:
+    range: Begrep
+    multivalued: true
+    required: true
+    slot_uri: skosno:hasToConcept
+  relasjonsrolle:
+    range: SpraakTekst
+    inlined: true
+    required: true
+    slot_uri: skosno:relationRole
+
+  # --- kontaktpunkt ---
+  epost:
+    title: e-post
+    slot_uri: vcard:hasEmail
+  telefon:
+    slot_uri: vcard:hasTelephone
+
+enums:
+
+  ForholdTilKilde:
+    title: Forhold til kilde
+    permissible_values:
+      egendefinert:
+        meaning: relkilde:self-composed
+      basert_pa_kilde:
+        title: basert på kilde
+        meaning: relkilde:derived-from-source
+      sitat_fra_kilde:
+        meaning: relkilde:direct-from-source
+
+  Malgruppe:
+    title: Målgruppe
+    permissible_values:
+      allmennheten:
+        meaning: malgruppe:public
+      fagspesialist:
+        meaning: malgruppe:specialist
+
+  BegrepStatus:
+    title: Begrepsstatus
+    description: EUs kodeliste for begrepsstatus (concept-status).
+    permissible_values:
+      kandidat:
+        meaning: conceptstatus:CANDIDATE
+      gjeldende:
+        meaning: conceptstatus:CURRENT
+      foreldet:
+        meaning: conceptstatus:DEPRECATED

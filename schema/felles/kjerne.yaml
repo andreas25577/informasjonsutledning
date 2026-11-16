@@ -1,0 +1,112 @@
+id: https://w3id.org/udi/regelverksmodell/felles/kjerne
+name: kjerne
+title: Kjerneklasser
+description: Klasser som brukes av flere fagområder. Foreløpig bare det utlendingsloven § 40 krever.
+version: 0.1.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  kjerne: https://w3id.org/udi/regelverksmodell/felles/kjerne/
+default_prefix: kjerne
+default_range: string
+imports:
+  - linkml:types
+  - ../kodeverk/tillatelsestype
+
+classes:
+  Person:
+    title: Person
+    description: Fysisk person som regelverket knytter rettigheter, plikter eller vilkår til.
+    annotations:
+      materiell_hjemmel: utl-39-1
+      kildeniva: lov
+    slots:
+      - fodselsdato
+      - statsborgerskap
+
+  Oppholdstillatelse:
+    title: Oppholdstillatelse
+    description: Tillatelse til å oppholde seg i riket.
+    annotations:
+      materiell_hjemmel: utl-40-1
+      kildeniva: lov
+    slots:
+      - innehaver
+      - tillatelsestype
+      - danner_grunnlag_for_permanent_oppholdstillatelse
+
+  Soknad:
+    title: Søknad om oppholdstillatelse
+    description: Søknad fra en utlending om oppholdstillatelse.
+    annotations:
+      materiell_hjemmel: utl-40-6
+      kildeniva: lov
+    slots:
+      - soker
+      - stilt_i_bero
+
+slots:
+  fodselsdato:
+    title: fødselsdato
+    description: Datoen personen er født. Alder utledes av denne.
+    range: date
+    annotations:
+      materiell_hjemmel: utl-40-2
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utf-17-7-1-a utf-17-7j-2-e
+      saerlig_kategori: nei
+  statsborgerskap:
+    title: statsborgerskap
+    description: Staten eller statene personen er borger av.
+    multivalued: true
+    annotations:
+      materiell_hjemmel: utl-40-1-a
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utf-17-7-1-a utf-17-7j-2-e
+      saerlig_kategori: nei
+  innehaver:
+    title: innehaver
+    description: Personen tillatelsen er gitt til.
+    range: Person
+    annotations:
+      materiell_hjemmel: utl-40-1-b
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      saerlig_kategori: nei
+  tillatelsestype:
+    title: tillatelsestype
+    description: Hvilken type oppholdstillatelse det gjelder.
+    range: Tillatelsestype
+    annotations:
+      materiell_hjemmel: utl-40-1-b utl-40-1-d
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      saerlig_kategori: nei
+  danner_grunnlag_for_permanent_oppholdstillatelse:
+    title: danner grunnlag for permanent oppholdstillatelse
+    description: Om tillatelsen kan danne grunnlag for permanent oppholdstillatelse.
+    range: boolean
+    annotations:
+      materiell_hjemmel: utl-40-1-c
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      saerlig_kategori: nei
+  soker:
+    title: søker
+    description: Personen som søker om oppholdstillatelse.
+    range: Person
+    annotations:
+      materiell_hjemmel: utl-40-1
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      saerlig_kategori: nei
+  stilt_i_bero:
+    title: stilt i bero
+    description: Om behandlingen av søknaden er stilt i bero.
+    range: boolean
+    annotations:
+      materiell_hjemmel: utl-40-6
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      saerlig_kategori: nei

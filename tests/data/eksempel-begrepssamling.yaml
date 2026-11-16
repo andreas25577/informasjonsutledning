@@ -1,0 +1,39 @@
+id: skosapno:samling/test
+navn:
+  nb: Testsamling
+publisert_av: https://data.brreg.no/enhetsregisteret/api/enheter/000000000
+kontaktpunkt:
+  - epost: mailto:test@example.org
+begreper:
+  - id: skosapno:begrep/referanseperson
+    anbefalt_term:
+      nb: referanseperson
+    definisjon:
+      - tekst:
+          nb: Person i Norge som søkeren utleder sin rett til opphold fra.
+        forhold_til_kilde: basert_pa_kilde
+        kilde:
+          - utl-40-1
+        malgruppe: fagspesialist
+    status: kandidat
+    publisert_av: https://data.brreg.no/enhetsregisteret/api/enheter/000000000
+    kontaktpunkt:
+      - epost: mailto:test@example.org
+  - id: skosapno:begrep/ektefelle
+    anbefalt_term:
+      nb: ektefelle
+    definisjon:
+      - tekst:
+          nb: Person som er gift med referansepersonen.
+        forhold_til_kilde: egendefinert
+    publisert_av: https://data.brreg.no/enhetsregisteret/api/enheter/000000000
+    kontaktpunkt:
+      - epost: mailto:test@example.org
+    generiske_relasjoner:
+      - overbegrep:
+          - skosapno:begrep/familiemedlem
+    assosiative_relasjoner:
+      - til_begrep:
+          - skosapno:begrep/referanseperson
+        relasjonsrolle:
+          nb: er gift med

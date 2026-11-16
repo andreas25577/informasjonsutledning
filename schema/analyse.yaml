@@ -1,0 +1,168 @@
+id: https://w3id.org/udi/regelverksmodell/analyse
+name: analyse
+title: Skjema for arbeidsfilene i regelverksanalysen
+description: >-
+  Beskriver radene i avgrensning.csv, kilderegister.csv og annotering.csv,
+  slik at arbeidsfilene kan valideres. Klassene i WetsanalyseKlasse følger
+  Juridisch Analyseschema (JAS) 1.0.10.
+version: 0.1.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  analyse: https://w3id.org/udi/regelverksmodell/analyse/
+default_prefix: analyse
+default_range: string
+imports:
+  - linkml:types
+
+classes:
+  Avgrensningsrad:
+    title: Rad i avgrensningen
+    description: Én bestemmelse og om den er med i piloten.
+    attributes:
+      kilde:
+        required: true
+        description: Lov eller forskrift bestemmelsen står i.
+      bestemmelse:
+        required: true
+        description: Paragraf eller artikkel.
+      tittel:
+        description: Bestemmelsens overskrift.
+      rolle:
+        range: Hjemmelsrolle
+        required: true
+      status:
+        range: Avgrensningsstatus
+        required: true
+      merknad:
+        description: Begrunnelse eller åpent spørsmål.
+
+  Kilde:
+    title: Rad i kilderegisteret
+    description: Ett ledd, punkt eller bokstav i en bestemmelse.
+    attributes:
+      kilde_id:
+        identifier: true
+        description: Kort ID etter navnekonvensjonen, for eksempel utl-40-1.
+        pattern: "^[a-z]+(-[0-9]+[a-z]?)+(-[a-z])?$"
+      kildeniva:
+        title: kildenivå
+        range: Kildeniva
+        required: true
+      dokument:
+        required: true
+        description: Lovdata-ID, for eksempel LOV-2008-05-15-35.
+      bestemmelse:
+        required: true
+      ledd:
+        range: integer
+      punkt:
+        description: Bokstav eller nummer innenfor leddet.
+      tekst:
+        required: true
+        description: Ordlyden, hentet fra Lovdata.
+      eli:
+        range: uri
+        description: ELI for dokumentet.
+      lenke:
+        range: uri
+        description: Lenke til bestemmelsen hos Lovdata.
+      ajourfort:
+        title: ajourført
+        range: date
+        description: Datoen kildefilen fra Lovdata var ajourført.
+
+  Annotering:
+    title: Rad i annoteringsarket
+    description: Én klassifisering av et tekstutdrag etter Wetsanalyse.
+    attributes:
+      annotering_id:
+        identifier: true
+      kilde_id:
+        range: Kilde
+        required: true
+      tekstutdrag:
+        required: true
+      klasse:
+        range: WetsanalyseKlasse
+        required: true
+      foreslatt_term:
+        title: foreslått term
+      kommentar:
+      status:
+        range: Valideringsstatus
+        required: true
+      vurdert_av:
+        description: Hvem som har satt status.
+
+enums:
+  Hjemmelsrolle:
+    permissible_values:
+      materiell:
+        description: Vilkår eller rettsfølge som forutsetter opplysninger.
+      felles:
+        description: Felles regel som kapittel 6 viser til.
+      behandling:
+        description: Hjemmel for å innhente, behandle eller dele opplysninger.
+
+  Avgrensningsstatus:
+    permissible_values:
+      med:
+      ikke_med:
+      avklares:
+        description: Avgjøres av juristen ved oppstart.
+
+  Kildeniva:
+    title: Kildenivå
+    permissible_values:
+      lov:
+      forskrift:
+      internasjonal_rett:
+      forarbeid_eller_rettspraksis:
+      rundskriv_eller_instruks:
+      udi_retningslinje:
+
+  Valideringsstatus:
+    permissible_values:
+      utkast:
+        description: Maskinelt utkast, ikke vurdert.
+      godkjent:
+      endret:
+        description: Godkjent etter endring fra juristen.
+      avvist:
+      kandidat:
+        description: Finnes bare i praksis. Holdes utenfor modellen.
+
+  WetsanalyseKlasse:
+    title: Klasse etter Wetsanalyse (JAS 1.0.10)
+    permissible_values:
+      rettssubjekt:
+        description: Den som har rettigheter eller plikter (rechtssubject).
+      rettsobjekt:
+        description: Det rettsforholdet gjelder (rechtsobject).
+      rettsforhold:
+        description: Rettighet eller plikt mellom to rettssubjekter (rechtsbetrekking).
+      rettsfaktum:
+        description: Hendelse som skaper, endrer eller avslutter et rettsforhold (rechtsfeit).
+      vilkar:
+        title: vilkår
+        description: Betingelse for en rettsfølge (voorwaarde).
+      avledningsregel:
+        description: Beregning eller utledning (afleidingsregel).
+      variabel:
+        description: Verdi som fastsettes i hver sak (variabele).
+      variabelverdi:
+        description: Tillatt verdi for en variabel (variabelewaarde).
+      parameter:
+        description: Fast verdi gitt i regelverket (parameter).
+      parameterverdi:
+        description: Konkret verdi for en parameter i en periode (parameterwaarde).
+      operator:
+        description: Regneoperasjon, sammenligning eller sammensatt betingelse (operator).
+      tidsangivelse:
+        description: Tidspunkt, frist eller periode (tijdsaanduiding).
+      stedsangivelse:
+        description: Angivelse av sted (plaatsaanduiding).
+      delegasjon:
+        description: Myndighet til å gi utfyllende regler, og bruken av den (delegatiebevoegdheid/-invulling).
+      legaldefinisjon:
+        description: Definisjon som står i regelverket selv (brondefinitie).

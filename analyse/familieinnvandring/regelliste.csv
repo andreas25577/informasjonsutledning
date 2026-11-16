@@ -1,0 +1,14 @@
+regel_id,kilde_id,type,beskrivelse,bruker_attributter,skjonn
+R-utl-40-01,utl-40-1,vilkar,Søkeren er ektefelle til referansepersonen.,Ekteskap.ektefeller Ekteskap.bestar,nei
+R-utl-40-02,utl-40-1-a,vilkar,Referansepersonen er norsk eller nordisk statsborger og er bosatt eller skal bosette seg i riket.,Person.statsborgerskap Referanseperson.bosettingsstatus,nei
+R-utl-40-03,utl-40-1-b,vilkar,Referansepersonen har permanent oppholdstillatelse.,Referanseperson.oppholdstillatelse Oppholdstillatelse.tillatelsestype,nei
+R-utl-40-04,utl-40-1-c,vilkar,Referansepersonen har eller får tillatelse som kan danne grunnlag for permanent oppholdstillatelse.,Referanseperson.oppholdstillatelse Oppholdstillatelse.danner_grunnlag_for_permanent_oppholdstillatelse,nei
+R-utl-40-05,utl-40-1-d,vilkar,"Referansepersonen har tillatelse etter kollektiv beskyttelse, og ordningen har ikke opphørt.",Referanseperson.oppholdstillatelse Oppholdstillatelse.tillatelsestype,nei
+R-utl-40-06,utl-40-2,avledningsregel,Begge parter er over 18 år. Alder beregnes fra fødselsdato. Unntak for parter som omfattes av 24-årskravet i § 41 a.,Person.fodselsdato,nei
+R-utl-40-07,utl-40-3,vilkar,"Ektefellene skal bo sammen, med mindre særskilte omstendigheter tilsier noe annet.",Ekteskap.skal_bo_sammen,ja
+R-utl-40-08,utl-40-4,vilkar,Tillatelse kan nektes når det hovedsakelige formålet med ekteskapsinngåelsen mest sannsynlig var å gi søkeren oppholdsgrunnlag.,Ekteskap.inngaelsesdato,ja
+R-utl-40-09,utl-40-5,vilkar,"Tillatelse kan nektes når søkeren verken har felles barn eller etablert samliv med referansepersonen, og søkeren eller særkullsbarn mest sannsynlig vil bli mishandlet eller grovt utnyttet.",Soker.har_felles_barn_med_referansepersonen Soker.har_levd_i_etablert_samliv_med_referansepersonen Soker.saerkullsbarn,ja
+R-utl-40-10,utl-40-6,avledningsregel,Tillatelse til særkullsbarn skal som hovedregel nektes når referansepersonen de siste 10 årene er domfelt for seksuallovbrudd mot barn under 18 år.,Referanseperson.domfellelser Domfellelse.domsdato Domfellelse.gjelder_seksuallovbrudd Domfellelse.fornaermede_var_under_18_ar,ja
+R-utl-40-11,utl-40-6,vilkar,Søknaden skal stilles i bero når forelderens ektefelle er mistenkt eller siktet for et straffbart forhold som kan få betydning for søknaden.,Referanseperson.er_mistenkt_eller_siktet Soknad.stilt_i_bero,nei
+R-utl-40-12,utl-40-7,vilkar,"Har referansepersonen inngått ekteskap med flere, kan bare én ektefelle få tillatelse. Tillatelse kan ikke gis når referansepersonen allerede er gift med en person som er bosatt i riket.",Referanseperson.ekteskap Ekteskap.bestar Ekteskap.ektefeller,nei
+R-utl-40-13,utl-40-7,vilkar,"Tillatelse kan nektes når referansepersonen tidligere har vært gift, og de tidligere ektefellene mest sannsynlig akter å fortsette samlivet.",Referanseperson.ekteskap Ekteskap.bestar,ja

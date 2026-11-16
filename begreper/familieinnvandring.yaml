@@ -1,0 +1,122 @@
+id: begrep:samling/familieinnvandring
+navn:
+  nb: Begreper i familieinnvandring
+beskrivelse:
+  nb: Utkast fra prøvekjøringen på utlendingsloven § 40. Ikke juridisk validert.
+publisert_av: https://data.brreg.no/enhetsregisteret/api/enheter/974760746
+kontaktpunkt: &id001
+- epost: (fastsettes)
+begreper:
+- id: begrep:referanseperson
+  anbefalt_term:
+    nb: referanseperson
+  definisjon:
+  - tekst:
+      nb: den personen som søkeren ønsker å bli gjenforent med eller å etablere familieliv med
+    forhold_til_kilde: sitat_fra_kilde
+    kilde:
+    - utl-39-1
+    malgruppe: fagspesialist
+  status: kandidat
+  publisert_av: https://data.brreg.no/enhetsregisteret/api/enheter/974760746
+  kontaktpunkt: *id001
+- id: begrep:soker
+  anbefalt_term:
+    nb: søker
+  definisjon:
+  - tekst:
+      nb: person som søker oppholdstillatelse for å bli gjenforent med eller etablere familieliv med en referanseperson
+    forhold_til_kilde: basert_pa_kilde
+    kilde:
+    - utl-39-1
+    - utl-40-1
+    malgruppe: fagspesialist
+  status: kandidat
+  publisert_av: https://data.brreg.no/enhetsregisteret/api/enheter/974760746
+  kontaktpunkt: *id001
+- id: begrep:ekteskap
+  anbefalt_term:
+    nb: ekteskap
+  definisjon:
+  - tekst:
+      nb: rettslig forhold mellom to personer som er gift med hverandre
+    forhold_til_kilde: egendefinert
+    kilde:
+    - utl-40-1
+    malgruppe: fagspesialist
+  status: kandidat
+  publisert_av: https://data.brreg.no/enhetsregisteret/api/enheter/974760746
+  kontaktpunkt: *id001
+  merknad:
+  - nb: Loven definerer ikke ekteskap. Juristen avgjør om definisjonen skal hentes fra ekteskapsloven.
+- id: begrep:ektefelle
+  anbefalt_term:
+    nb: ektefelle
+  definisjon:
+  - tekst:
+      nb: person som er gift med en annen person
+    forhold_til_kilde: egendefinert
+    kilde:
+    - utl-40-1
+    malgruppe: fagspesialist
+  status: kandidat
+  publisert_av: https://data.brreg.no/enhetsregisteret/api/enheter/974760746
+  kontaktpunkt: *id001
+- id: begrep:oppholdstillatelse
+  anbefalt_term:
+    nb: oppholdstillatelse
+  definisjon:
+  - tekst:
+      nb: tillatelse til å oppholde seg i riket
+    forhold_til_kilde: egendefinert
+    kilde:
+    - utl-40-1
+    malgruppe: fagspesialist
+  status: kandidat
+  publisert_av: https://data.brreg.no/enhetsregisteret/api/enheter/974760746
+  kontaktpunkt: *id001
+  merknad:
+  - nb: Bør trolig hentes fra utlendingsloven kapittel 7 når det analyseres.
+- id: begrep:saerkullsbarn
+  anbefalt_term:
+    nb: særkullsbarn
+  definisjon:
+  - tekst:
+      nb: barn som en av ektefellene har, og som ikke er den andre ektefellens barn
+    forhold_til_kilde: egendefinert
+    kilde:
+    - utl-40-5
+    malgruppe: fagspesialist
+  status: kandidat
+  publisert_av: https://data.brreg.no/enhetsregisteret/api/enheter/974760746
+  kontaktpunkt: *id001
+  merknad:
+  - nb: Loven bruker termen uten å definere den.
+- id: begrep:etablert-samliv
+  anbefalt_term:
+    nb: etablert samliv
+  definisjon:
+  - tekst:
+      nb: samliv mellom søker og referanseperson som har vart over tid, i utlandet eller i Norge
+    forhold_til_kilde: egendefinert
+    kilde:
+    - utl-40-5
+    malgruppe: fagspesialist
+  status: kandidat
+  publisert_av: https://data.brreg.no/enhetsregisteret/api/enheter/974760746
+  kontaktpunkt: *id001
+  merknad:
+  - nb: Hva som regnes som etablert, følger av forarbeider og praksis. Hentes inn i berikelsessteget.
+- id: begrep:18-arskravet
+  anbefalt_term:
+    nb: 18-årskravet
+  definisjon:
+  - tekst:
+      nb: vilkår om at begge parter i ekteskapet er over 18 år
+    forhold_til_kilde: basert_pa_kilde
+    kilde:
+    - utl-40-2
+    malgruppe: fagspesialist
+  status: kandidat
+  publisert_av: https://data.brreg.no/enhetsregisteret/api/enheter/974760746
+  kontaktpunkt: *id001
