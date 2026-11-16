@@ -1,6 +1,6 @@
 # UDI regelverksmodell
 
-Konseptuell informasjonsmodell utledet av utlendingsregelverket. Hver klasse, hvert attributt og hver relasjon kan spores til paragraf, ledd og punkt.
+Informasjonsmodell utledet av utlendingsregelverket, i tre nivåer: begreper, konseptuell modell og logisk modell. Hver klasse, egenskap og relasjon kan spores til paragraf, ledd og punkt.
 
 Status: pilot på familieinnvandring. Ingenting her er juridisk validert ennå.
 
@@ -8,13 +8,13 @@ Status: pilot på familieinnvandring. Ingenting her er juridisk validert ennå.
 
 | Mappe | Innhold |
 | --- | --- |
-| `schema/felles/` | Felles skjema: SKOS-AP-NO, rettskilde, typer, kjerneklasser |
-| `schema/kodeverk/` | Ett kodeverk per fil |
-| `schema/domener/` | Én modell per fagområde |
+| `schema/felles/` | Felles skjema: SKOS-AP-NO og logiske kjerneklasser |
+| `schema/konseptuell/` | Konseptuell modell per fagområde. Hjemlene står her. |
+| `schema/domener/`, `schema/kodeverk/` | Logisk modell og kodeverk. Peker til den konseptuelle modellen. |
 | `schema/analyse.yaml` | Skjema som validerer arbeidsfilene |
 | `begreper/` | Begreper som data etter SKOS-AP-NO |
 | `analyse/<fagområde>/` | Avgrensning, kilderegister, annotering, regelliste |
-| `verktoy/` | Skript som bygger kilderegister, hjemmelsmatrise og nettsted |
+| `verktoy/` | Skript som bygger kilderegister, hjemmelsmatrise og nettsted, og kontrollerer nivåene |
 | `kilder/` | Kildefiler fra Lovdata (ikke i Git) |
 | `generert/`, `docs/` | Generert fra skjemaene |
 
@@ -50,7 +50,8 @@ Mappen `intern/` og hjemmelsmatrisen er ikke med i Git. De inneholder funn som i
 ```
 pip install linkml
 linkml-lint schema/
-linkml-validate -s schema/felles/skos-ap-no.yaml -C Begrepssamling tests/data/eksempel-begrepssamling.yaml
+linkml-validate -s schema/felles/skos-ap-no.yaml -C Begrepssamling begreper/familieinnvandring.yaml
+python verktoy/kontroller_modell.py
 ```
 
 ## Metode

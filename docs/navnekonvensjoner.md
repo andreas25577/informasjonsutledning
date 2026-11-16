@@ -33,9 +33,19 @@ Mønster: `<kilde>-<paragraf>-<ledd>[-<bokstav eller nummer>]`
 
 Lagene importerer bare nedover: `domener` → `kodeverk` → `felles`. Et fagområde importerer aldri et annet fagområde.
 
+## Nivåer
+
+| Nivå | Mappe | Innhold |
+| --- | --- | --- |
+| Begreper | `begreper/` | Termer og definisjoner etter SKOS-AP-NO |
+| Konseptuell modell | `schema/konseptuell/` | Klasser, egenskaper og relasjoner slik regelverket nevner dem. Ingen datatyper. |
+| Logisk modell | `schema/domener/`, `schema/felles/kjerne.yaml`, `schema/kodeverk/` | Datatyper, ja/nei-felt og kodeverk |
+
 ## Hjemmel på modellelementer
 
-Hver klasse og hvert attributt har annotasjonene `materiell_hjemmel` og `kildeniva`. Attributter har også `behandlingsgrunnlag` og `saerlig_kategori`. Verdiene er kilde-ID-er, ikke fritekst.
+Hjemlene står i den konseptuelle modellen. Hver klasse, egenskap og relasjon har annotasjonene `jas_klasse` (klassen i Wetsanalyse), `materiell_hjemmel` og `kildeniva`. Egenskaper og relasjoner har også `behandlingsgrunnlag`, `innhentingshjemmel` og `saerlig_kategori`. Verdiene er kilde-ID-er, ikke fritekst.
+
+Hvert element i den logiske modellen har annotasjonen `realiserer`, som peker til et konseptuelt element (`Person.alder`). `designvalg` forklarer valg som ikke følger av regelverket. `verktoy/kontroller_modell.py` kontrollerer pekerne.
 
 ## URI
 

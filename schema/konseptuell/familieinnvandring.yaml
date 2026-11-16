@@ -1,0 +1,388 @@
+id: https://w3id.org/udi/regelverksmodell/konseptuell/familieinnvandring
+name: familieinnvandring_konseptuell
+title: Familieinnvandring – konseptuell modell
+description: 'Konseptuell modell for familieinnvandring etter utlendingsloven kapittel 6. Modellen gjengir det regelverket selv nevner: hvem og hva reglene gjelder, forholdene mellom dem og egenskapene vilkårene bygger på. Den har ingen datatyper. Hjemlene står her. Utkast fra prøvekjøringen: dekker bare § 39 og § 40, og er ikke juridisk validert.'
+version: 0.2.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  kons: https://w3id.org/udi/regelverksmodell/konseptuell/familieinnvandring/
+  begrep: https://w3id.org/udi/regelverksmodell/begrep/
+default_prefix: kons
+default_range: Verdi
+imports:
+- linkml:types
+types:
+  Verdi:
+    typeof: string
+    title: Verdi
+    description: Egenskap uten fastsatt datatype. Datatypen velges i den logiske modellen.
+classes:
+  Person:
+    title: Person
+    description: Fysisk person som regelverket knytter rettigheter, plikter eller vilkår til.
+    annotations:
+      jas_klasse: rettssubjekt
+      materiell_hjemmel: utl-39-1
+      kildeniva: lov
+    slots:
+    - alder
+    - statsborgerskap
+    - bosetting_i_riket
+    - er_part_i
+  Soker:
+    title: Søker
+    description: Person som søker oppholdstillatelse for å bli gjenforent med eller etablere familieliv med en referanseperson.
+    is_a: Person
+    exact_mappings:
+    - begrep:soker
+    annotations:
+      jas_klasse: rettssubjekt
+      materiell_hjemmel: utl-40-1
+      kildeniva: lov
+    slots:
+    - soker_familieliv_med
+    - har_rett_til
+    - har_felles_barn_med
+    - har_levd_i_etablert_samliv_med
+    - har_saerkullsbarn
+  Referanseperson:
+    title: Referanseperson
+    description: Den personen som søkeren ønsker å bli gjenforent med eller å etablere familieliv med.
+    is_a: Person
+    exact_mappings:
+    - begrep:referanseperson
+    annotations:
+      jas_klasse: rettssubjekt
+      materiell_hjemmel: utl-39-1
+      kildeniva: lov
+    slots:
+    - har_oppholdstillatelse
+    - er_domfelt_for
+    - er_mistenkt_eller_siktet_for
+  Saerkullsbarn:
+    title: Særkullsbarn
+    description: Barn som en av ektefellene har, og som ikke er den andre ektefellens barn.
+    is_a: Person
+    exact_mappings:
+    - begrep:saerkullsbarn
+    annotations:
+      jas_klasse: rettssubjekt
+      materiell_hjemmel: utl-40-5
+      kildeniva: lov
+  Ekteskap:
+    title: Ekteskap
+    description: Rettslig forhold mellom to personer som er gift med hverandre.
+    exact_mappings:
+    - begrep:ekteskap
+    annotations:
+      jas_klasse: rettsforhold
+      materiell_hjemmel: utl-40-1
+      kildeniva: lov
+    slots:
+    - parter
+    - er_inngatt_ved
+    - tilstand
+    - samliv
+    - formal_med_inngaelsen
+  Ekteskapsinngaelse:
+    title: Ekteskapsinngåelse
+    description: Hendelsen der to personer inngår ekteskap.
+    annotations:
+      jas_klasse: rettsfaktum
+      materiell_hjemmel: utl-40-4
+      kildeniva: lov
+    slots:
+    - tidspunkt
+  Oppholdstillatelse:
+    title: Oppholdstillatelse
+    description: Tillatelse til å oppholde seg i riket.
+    exact_mappings:
+    - begrep:oppholdstillatelse
+    annotations:
+      jas_klasse: rettsobjekt
+      materiell_hjemmel: utl-40-1
+      kildeniva: lov
+    slots:
+    - type_tillatelse
+  Soknad:
+    title: Søknad om oppholdstillatelse
+    description: Søknad fra en utlending om oppholdstillatelse.
+    annotations:
+      jas_klasse: rettsobjekt
+      materiell_hjemmel: utl-40-6
+      kildeniva: lov
+    slots:
+    - fremmet_av
+    - er_stilt_i_bero_ved
+  Berostillelse:
+    title: Berostillelse
+    description: Hendelsen der behandlingen av en søknad stilles i bero.
+    annotations:
+      jas_klasse: rettsfaktum
+      materiell_hjemmel: utl-40-6
+      kildeniva: lov
+  StraffbartForhold:
+    title: Straffbart forhold
+    description: Handling som er straffbar, og som en person er mistenkt, siktet eller domfelt for.
+    annotations:
+      jas_klasse: rettsfaktum
+      materiell_hjemmel: utl-40-6
+      kildeniva: lov
+    slots:
+    - lovbruddskategori
+    - tidspunkt_for_domfellelse
+    - fornaermedes_alder
+slots:
+  alder:
+    title: alder
+    description: Hvor gammel personen er.
+    annotations:
+      jas_klasse: variabel
+      materiell_hjemmel: utl-40-2
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utf-17-7-1-a utf-17-7j-2-e
+      saerlig_kategori: nei
+  statsborgerskap:
+    title: statsborgerskap
+    description: Hvilken stat personen er borger av, herunder om personen er norsk eller nordisk statsborger.
+    annotations:
+      jas_klasse: variabel
+      materiell_hjemmel: utl-40-1-a
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utf-17-7-1-a utf-17-7j-2-e
+      saerlig_kategori: nei
+  bosetting_i_riket:
+    title: bosetting i riket
+    description: Om personen er bosatt i riket eller skal bosette seg der.
+    annotations:
+      jas_klasse: variabel
+      materiell_hjemmel: utl-40-1-a
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utf-17-7j-2-e
+      saerlig_kategori: nei
+  tilstand:
+    title: tilstand
+    description: Om ekteskapet består, eller om partene tidligere har vært gift.
+    annotations:
+      jas_klasse: variabel
+      materiell_hjemmel: utl-40-7
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utf-17-7j-2-e
+      saerlig_kategori: nei
+  samliv:
+    title: samliv
+    description: Om ektefellene skal bo sammen.
+    annotations:
+      jas_klasse: variabel
+      materiell_hjemmel: utl-40-3
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utl-83-1
+      saerlig_kategori: nei
+  formal_med_inngaelsen:
+    title: formål med inngåelsen
+    description: Det hovedsakelige formålet med at ekteskapet ble inngått.
+    annotations:
+      jas_klasse: variabel
+      materiell_hjemmel: utl-40-4
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utl-83-1
+      saerlig_kategori: nei
+      skjonnsmessig_vurdering: ja
+  tidspunkt:
+    title: tidspunkt
+    description: Når hendelsen fant sted.
+    annotations:
+      jas_klasse: tidsangivelse
+      materiell_hjemmel: utl-40-4
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utl-83-1
+      saerlig_kategori: nei
+  type_tillatelse:
+    title: type tillatelse
+    description: 'Hva slags oppholdstillatelse det er: permanent, tillatelse som kan danne grunnlag for permanent oppholdstillatelse, eller tillatelse etter kollektiv beskyttelse.'
+    annotations:
+      jas_klasse: variabel
+      materiell_hjemmel: utl-40-1-b utl-40-1-c utl-40-1-d
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      saerlig_kategori: nei
+  lovbruddskategori:
+    title: lovbruddskategori
+    description: Hva slags lovbrudd forholdet gjelder, herunder seksuallovbrudd.
+    annotations:
+      jas_klasse: variabel
+      materiell_hjemmel: utl-40-6
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utl-85-2 utf-17-8-1
+      saerlig_kategori: straffedommer_og_lovovertredelser
+  tidspunkt_for_domfellelse:
+    title: tidspunkt for domfellelse
+    description: Når personen ble domfelt for forholdet.
+    annotations:
+      jas_klasse: tidsangivelse
+      materiell_hjemmel: utl-40-6
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utl-85-2 utf-17-8-1
+      saerlig_kategori: straffedommer_og_lovovertredelser
+  fornaermedes_alder:
+    title: fornærmedes alder
+    description: Alderen til den handlingen var begått mot.
+    annotations:
+      jas_klasse: variabel
+      materiell_hjemmel: utl-40-6
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utl-85-2 utf-17-8-1
+      saerlig_kategori: straffedommer_og_lovovertredelser
+  er_part_i:
+    title: er part i
+    description: Personen er eller har vært gift i dette ekteskapet.
+    range: Ekteskap
+    multivalued: true
+    annotations:
+      jas_klasse: rettsforhold
+      materiell_hjemmel: utl-40-1 utl-40-7
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utf-17-7-1-a utf-17-7j-2-e
+      saerlig_kategori: nei
+  parter:
+    title: parter
+    description: De to personene som er gift med hverandre.
+    range: Person
+    multivalued: true
+    annotations:
+      jas_klasse: rettsforhold
+      materiell_hjemmel: utl-40-1
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utf-17-7-1-a utf-17-7j-2-e
+      saerlig_kategori: nei
+  er_inngatt_ved:
+    title: er inngått ved
+    description: Hendelsen som stiftet ekteskapet.
+    range: Ekteskapsinngaelse
+    annotations:
+      jas_klasse: rettsfaktum
+      materiell_hjemmel: utl-40-4
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utl-83-1
+      saerlig_kategori: nei
+  soker_familieliv_med:
+    title: søker familieliv med
+    description: Referansepersonen søkeren ønsker å bli gjenforent med eller etablere familieliv med.
+    range: Referanseperson
+    annotations:
+      jas_klasse: rettsforhold
+      materiell_hjemmel: utl-39-1
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      saerlig_kategori: nei
+  har_rett_til:
+    title: har rett til
+    description: Oppholdstillatelsen søkeren har rett til når vilkårene er oppfylt.
+    range: Oppholdstillatelse
+    annotations:
+      jas_klasse: rettsforhold
+      materiell_hjemmel: utl-40-1
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      saerlig_kategori: nei
+  har_felles_barn_med:
+    title: har felles barn med
+    description: Søkeren og referansepersonen har barn sammen.
+    range: Referanseperson
+    annotations:
+      jas_klasse: rettsforhold
+      materiell_hjemmel: utl-40-5
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utl-83-1 utf-17-7j-2-e
+      saerlig_kategori: nei
+  har_levd_i_etablert_samliv_med:
+    title: har levd i etablert samliv med
+    description: Søkeren har levd i et etablert samliv med referansepersonen i utlandet eller i Norge.
+    range: Referanseperson
+    annotations:
+      jas_klasse: rettsforhold
+      materiell_hjemmel: utl-40-5
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utl-83-1
+      saerlig_kategori: nei
+  har_saerkullsbarn:
+    title: har særkullsbarn
+    description: Særkullsbarn som søkeren har.
+    range: Saerkullsbarn
+    multivalued: true
+    annotations:
+      jas_klasse: rettsforhold
+      materiell_hjemmel: utl-40-5
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utl-83-1
+      saerlig_kategori: nei
+  har_oppholdstillatelse:
+    title: har oppholdstillatelse
+    description: Oppholdstillatelsen referansepersonen har eller får.
+    range: Oppholdstillatelse
+    annotations:
+      jas_klasse: rettsforhold
+      materiell_hjemmel: utl-40-1-b utl-40-1-c utl-40-1-d
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      saerlig_kategori: nei
+  er_domfelt_for:
+    title: er domfelt for
+    description: Straffbart forhold referansepersonen er domfelt for.
+    range: StraffbartForhold
+    multivalued: true
+    annotations:
+      jas_klasse: rettsforhold
+      materiell_hjemmel: utl-40-6
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utl-85-1 utl-85-2 utf-17-8-1
+      saerlig_kategori: straffedommer_og_lovovertredelser
+  er_mistenkt_eller_siktet_for:
+    title: er mistenkt eller siktet for
+    description: Straffbart forhold referansepersonen er mistenkt eller siktet for, og som kan få betydning for søknaden.
+    range: StraffbartForhold
+    multivalued: true
+    annotations:
+      jas_klasse: rettsforhold
+      materiell_hjemmel: utl-40-6
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      innhentingshjemmel: utl-85-1 utf-17-8-1
+      saerlig_kategori: straffedommer_og_lovovertredelser
+  fremmet_av:
+    title: fremmet av
+    description: Søkeren som har fremmet søknaden.
+    range: Soker
+    annotations:
+      jas_klasse: rettsforhold
+      materiell_hjemmel: utl-40-1
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      saerlig_kategori: nei
+  er_stilt_i_bero_ved:
+    title: er stilt i bero ved
+    description: Hendelsen der behandlingen av søknaden ble stilt i bero.
+    range: Berostillelse
+    annotations:
+      jas_klasse: rettsfaktum
+      materiell_hjemmel: utl-40-6
+      kildeniva: lov
+      behandlingsgrunnlag: utl-83a-1
+      saerlig_kategori: nei

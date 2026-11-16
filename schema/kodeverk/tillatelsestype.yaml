@@ -1,14 +1,14 @@
 id: https://w3id.org/udi/regelverksmodell/kodeverk/tillatelsestype
 name: tillatelsestype
 title: Kodeverk for tillatelsestype
-description: Typer oppholdstillatelse som regelverket skiller mellom. Foreløpig bare verdiene utlendingsloven § 40 bruker.
+description: 'Logisk modell: kodeverk for tillatelsestype og bosettingsstatus. Foreløpig bare verdiene utlendingsloven § 40 bruker.'
 version: 0.1.0
 prefixes:
   linkml: https://w3id.org/linkml/
   kodeverk: https://w3id.org/udi/regelverksmodell/kodeverk/
 default_prefix: kodeverk
 imports:
-  - linkml:types
+- linkml:types
 enums:
   Tillatelsestype:
     title: Tillatelsestype
@@ -18,17 +18,17 @@ enums:
         title: permanent oppholdstillatelse
         description: Oppholdstillatelse uten tidsbegrensning.
         annotations:
-          materiell_hjemmel: utl-40-1-b
+          realiserer: Oppholdstillatelse.type_tillatelse
       midlertidig:
         title: midlertidig oppholdstillatelse
         description: Tidsbegrenset oppholdstillatelse.
         annotations:
-          materiell_hjemmel: utl-40-1-c
+          realiserer: Oppholdstillatelse.type_tillatelse
       kollektiv_beskyttelse:
         title: oppholdstillatelse etter kollektiv beskyttelse
         description: Tillatelse gitt etter ordningen med kollektiv beskyttelse i en massefluktsituasjon.
         annotations:
-          materiell_hjemmel: utl-40-1-d
+          realiserer: Oppholdstillatelse.type_tillatelse
   Bosettingsstatus:
     title: Bosettingsstatus
     description: Om en person er bosatt i riket eller skal bosette seg der.
@@ -36,8 +36,8 @@ enums:
       bosatt_i_riket:
         title: bosatt i riket
         annotations:
-          materiell_hjemmel: utl-40-1-a
+          realiserer: Person.bosetting_i_riket
       skal_bosette_seg_i_riket:
         title: skal bosette seg i riket
         annotations:
-          materiell_hjemmel: utl-40-1-a
+          realiserer: Person.bosetting_i_riket

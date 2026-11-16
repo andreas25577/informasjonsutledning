@@ -1,4 +1,4 @@
-"""Bygger hjemmelsmatrise.csv fra annotasjonene i et LinkML-skjema og kontrollerer alle kilde-ID-er.
+"""Bygger hjemmelsmatrise.csv fra annotasjonene i den konseptuelle modellen og kontrollerer alle kilde-ID-er.
 
 Bruk: python bygg_hjemmelsmatrise.py <skjema.yaml> <kilderegister.csv> <ut.csv> [funn.csv]
 Funn holdes utenfor det åpne repoet: de leses fra en egen fil og skrives bare til matrisen.
@@ -33,7 +33,7 @@ def main(skjema, register, utfil, funnfil=None):
         if not ih and not funn: funn = "Ingen særskilt innhentingshjemmel registrert. Opplysningen kommer fra søknaden eller fra UDIs egne vedtak."
         for felt, v in (("materiell_hjemmel", mh), ("behandlingsgrunnlag", bg), ("innhentingshjemmel", ih)):
             sjekk(s.name, felt, v)
-        rader.append(dict(element=s.name, type="attributt" if (s.range in sv.all_types() or s.range in sv.all_enums() or not s.range) else "relasjon",
+        rader.append(dict(element=s.name, type="egenskap" if (s.range in sv.all_types() or s.range in sv.all_enums() or not s.range) else "relasjon",
                           visningsnavn=s.title or "", materiell_hjemmel=mh, behandlingsgrunnlag=bg, innhentingshjemmel=ih,
                           saerlig_kategori=ann(s, "saerlig_kategori"), funn=funn))
     with open(utfil, "w", newline="", encoding="utf-8") as f:

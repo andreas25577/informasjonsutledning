@@ -24,10 +24,10 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt
-      - name: Valider skjema og begreper
+      - name: Valider begreper og sammenhengen mellom nivåene
         run: |
           linkml-validate -s schema/felles/skos-ap-no.yaml -C Begrepssamling begreper/familieinnvandring.yaml
-          gen-owl schema/domener/familieinnvandring.yaml > /dev/null
+          python verktoy/kontroller_modell.py
       - name: Bygg nettsted
         run: |
           python verktoy/bygg_nettsted.py

@@ -1,11 +1,8 @@
 id: https://w3id.org/udi/regelverksmodell/domener/familieinnvandring
 name: familieinnvandring
-title: Familieinnvandring
-description: >-
-  Konseptuell informasjonsmodell for familieinnvandring etter utlendingsloven
-  kapittel 6. Utkast fra prøvekjøringen: dekker bare § 39 og § 40, og er ikke
-  juridisk validert.
-version: 0.1.0
+title: Familieinnvandring – logisk modell
+description: 'Logisk modell for familieinnvandring. Hvert element peker med «realiserer» til elementet i den konseptuelle modellen, der hjemlene står. Datatyper, ja/nei-felt og kodeverk er designvalg uten egen hjemmel. Utkast fra prøvekjøringen: dekker bare utlendingsloven § 39 og § 40, og er ikke juridisk validert.'
+version: 0.2.0
 prefixes:
   linkml: https://w3id.org/linkml/
   fam: https://w3id.org/udi/regelverksmodell/domener/familieinnvandring/
@@ -13,162 +10,122 @@ prefixes:
 default_prefix: fam
 default_range: string
 imports:
-  - linkml:types
-  - ../felles/kjerne
-
+- linkml:types
+- ../felles/kjerne
 classes:
   Soker:
     title: Søker
     is_a: Person
     description: Person som søker oppholdstillatelse for å bli gjenforent med eller etablere familieliv med en referanseperson.
-    exact_mappings:
-      - begrep:soker
     annotations:
-      materiell_hjemmel: utl-40-1
-      kildeniva: lov
+      realiserer: Soker
     slots:
-      - har_felles_barn_med_referansepersonen
-      - har_levd_i_etablert_samliv_med_referansepersonen
-      - saerkullsbarn
-
+    - har_felles_barn_med_referansepersonen
+    - har_levd_i_etablert_samliv_med_referansepersonen
+    - saerkullsbarn
   Referanseperson:
     title: Referanseperson
     is_a: Person
     description: Den personen som søkeren ønsker å bli gjenforent med eller å etablere familieliv med.
-    exact_mappings:
-      - begrep:referanseperson
     annotations:
-      materiell_hjemmel: utl-39-1
-      kildeniva: lov
+      realiserer: Referanseperson
     slots:
-      - bosettingsstatus
-      - oppholdstillatelse
-      - ekteskap
-      - domfellelser
-      - er_mistenkt_eller_siktet
-
+    - bosettingsstatus
+    - oppholdstillatelse
+    - ekteskap
+    - domfellelser
+    - er_mistenkt_eller_siktet
   Ekteskap:
     title: Ekteskap
     description: Ekteskap mellom to personer, for eksempel mellom søker og referanseperson.
-    exact_mappings:
-      - begrep:ekteskap
     annotations:
-      materiell_hjemmel: utl-40-1
-      kildeniva: lov
+      realiserer: Ekteskap
     slots:
-      - ektefeller
-      - inngaelsesdato
-      - bestar
-      - skal_bo_sammen
-
+    - ektefeller
+    - inngaelsesdato
+    - bestar
+    - skal_bo_sammen
   Domfellelse:
     title: Domfellelse
     description: Dom der en person er funnet skyldig i et straffbart forhold.
     annotations:
-      materiell_hjemmel: utl-40-6
-      kildeniva: lov
+      realiserer: StraffbartForhold
+      designvalg: Bare straffbare forhold personen er domfelt for, er egen klasse. Mistanke og siktelse er et ja/nei-felt.
     slots:
-      - domsdato
-      - gjelder_seksuallovbrudd
-      - fornaermede_var_under_18_ar
-
+    - domsdato
+    - gjelder_seksuallovbrudd
+    - fornaermede_var_under_18_ar
   SoknadOmFamilieinnvandring:
     title: Søknad om familieinnvandring
     is_a: Soknad
     description: Søknad om oppholdstillatelse etter utlendingsloven kapittel 6.
     annotations:
-      materiell_hjemmel: utl-40-1
-      kildeniva: lov
+      realiserer: Soknad
+      designvalg: Egen underklasse for søknader etter kapittel 6.
     slots:
-      - referanseperson
-      - soknadsgrunnlag
+    - referanseperson
+    - soknadsgrunnlag
     slot_usage:
       soker:
         range: Soker
-
 slots:
   har_felles_barn_med_referansepersonen:
     title: har felles barn med referansepersonen
     description: Om søkeren og referansepersonen har barn sammen.
     range: boolean
     annotations:
-      materiell_hjemmel: utl-40-5
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      innhentingshjemmel: utl-83-1 utf-17-7j-2-e
-      saerlig_kategori: nei
+      realiserer: Soker.har_felles_barn_med
+      designvalg: Relasjonen er forenklet til et ja/nei-felt.
   har_levd_i_etablert_samliv_med_referansepersonen:
     title: har levd i etablert samliv med referansepersonen
     description: Om søkeren har levd i et etablert samliv med referansepersonen i utlandet eller i Norge.
     range: boolean
     annotations:
-      materiell_hjemmel: utl-40-5
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      innhentingshjemmel: utl-83-1
-      saerlig_kategori: nei
+      realiserer: Soker.har_levd_i_etablert_samliv_med
+      designvalg: Relasjonen er forenklet til et ja/nei-felt.
   saerkullsbarn:
     title: særkullsbarn
     description: Barn som søkeren har, og som ikke er referansepersonens barn.
     range: Person
     multivalued: true
     annotations:
-      materiell_hjemmel: utl-40-5
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      innhentingshjemmel: utl-83-1
-      saerlig_kategori: nei
+      realiserer: Soker.har_saerkullsbarn
+      designvalg: Særkullsbarn er ikke egen klasse, men en relasjon til Person.
   bosettingsstatus:
     title: bosettingsstatus
     description: Om referansepersonen er bosatt i riket eller skal bosette seg der.
     range: Bosettingsstatus
     annotations:
-      materiell_hjemmel: utl-40-1-a
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      innhentingshjemmel: utf-17-7j-2-e
-      saerlig_kategori: nei
+      realiserer: Person.bosetting_i_riket
+      designvalg: Kodeverk. Lagt på referansepersonen, fordi bare den bruker egenskapen i § 40.
   oppholdstillatelse:
     title: oppholdstillatelse
     description: Oppholdstillatelsen referansepersonen har eller får.
     range: Oppholdstillatelse
     annotations:
-      materiell_hjemmel: utl-40-1-b utl-40-1-c utl-40-1-d
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      saerlig_kategori: nei
+      realiserer: Referanseperson.har_oppholdstillatelse
   ekteskap:
     title: ekteskap
     description: Ekteskap referansepersonen er eller har vært part i, også med andre enn søkeren.
     range: Ekteskap
     multivalued: true
     annotations:
-      materiell_hjemmel: utl-40-7
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      innhentingshjemmel: utf-17-7j-2-e
-      saerlig_kategori: nei
+      realiserer: Person.er_part_i
+      designvalg: Lagt på referansepersonen, fordi § 40 sjuende ledd gjelder referansepersonens ekteskap.
   domfellelser:
     title: domfellelser
     description: Domfellelser mot referansepersonen som har betydning for søknaden.
     range: Domfellelse
     multivalued: true
     annotations:
-      materiell_hjemmel: utl-40-6
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      innhentingshjemmel: utl-85-1 utl-85-2 utf-17-8-1
-      saerlig_kategori: straffedommer_og_lovovertredelser
+      realiserer: Referanseperson.er_domfelt_for
   er_mistenkt_eller_siktet:
     title: er mistenkt eller siktet
     description: Om referansepersonen er mistenkt eller siktet for et straffbart forhold som kan få betydning for søknaden.
     range: boolean
     annotations:
-      materiell_hjemmel: utl-40-6
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      innhentingshjemmel: utl-85-1 utf-17-8-1
-      saerlig_kategori: straffedommer_og_lovovertredelser
+      realiserer: Referanseperson.er_mistenkt_eller_siktet_for
+      designvalg: Relasjonen er forenklet til et ja/nei-felt.
   ektefeller:
     title: ektefeller
     description: De to personene som er gift med hverandre.
@@ -176,90 +133,64 @@ slots:
     multivalued: true
     maximum_cardinality: 2
     annotations:
-      materiell_hjemmel: utl-40-1
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      innhentingshjemmel: utf-17-7-1-a utf-17-7j-2-e
-      saerlig_kategori: nei
+      realiserer: Ekteskap.parter
+      designvalg: Høyst to personer.
   inngaelsesdato:
     title: inngåelsesdato
     description: Datoen ekteskapet ble inngått.
     range: date
     annotations:
-      materiell_hjemmel: utl-40-4
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      innhentingshjemmel: utl-83-1
-      saerlig_kategori: nei
+      realiserer: Ekteskapsinngaelse.tidspunkt
+      designvalg: Hendelsen er forenklet til en dato på ekteskapet.
   bestar:
     title: består
     description: Om ekteskapet består, eller er oppløst.
     range: boolean
     annotations:
-      materiell_hjemmel: utl-40-7
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      innhentingshjemmel: utf-17-7j-2-e
-      saerlig_kategori: nei
+      realiserer: Ekteskap.tilstand
+      designvalg: Ja/nei-felt i stedet for kodeverk.
   skal_bo_sammen:
     title: skal bo sammen
     description: Om ektefellene skal bo sammen.
     range: boolean
     annotations:
-      materiell_hjemmel: utl-40-3
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      innhentingshjemmel: utl-83-1
-      saerlig_kategori: nei
+      realiserer: Ekteskap.samliv
+      designvalg: Ja/nei-felt.
   domsdato:
     title: domsdato
     description: Datoen dommen ble avsagt. Brukes til å avgjøre om domfellelsen er innenfor de siste ti årene.
     range: date
     annotations:
-      materiell_hjemmel: utl-40-6
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      innhentingshjemmel: utl-85-2 utf-17-8-1
-      saerlig_kategori: straffedommer_og_lovovertredelser
+      realiserer: StraffbartForhold.tidspunkt_for_domfellelse
+      designvalg: Dato.
   gjelder_seksuallovbrudd:
     title: gjelder seksuallovbrudd
     description: Om domfellelsen gjelder overtredelse av straffelovens bestemmelser om seksuallovbrudd.
     range: boolean
     annotations:
-      materiell_hjemmel: utl-40-6
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      innhentingshjemmel: utl-85-2 utf-17-8-1
-      saerlig_kategori: straffedommer_og_lovovertredelser
+      realiserer: StraffbartForhold.lovbruddskategori
+      designvalg: Ja/nei-felt for den ene kategorien § 40 bruker.
   fornaermede_var_under_18_ar:
     title: fornærmede var under 18 år
     description: Om den straffbare handlingen var begått mot et barn under 18 år.
     range: boolean
     annotations:
-      materiell_hjemmel: utl-40-6
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      innhentingshjemmel: utl-85-2 utf-17-8-1
-      saerlig_kategori: straffedommer_og_lovovertredelser
+      realiserer: StraffbartForhold.fornaermedes_alder
+      designvalg: Ja/nei-felt med aldersgrensen fra § 40 sjette ledd.
   referanseperson:
     title: referanseperson
     description: Referansepersonen søknaden gjelder.
     range: Referanseperson
     annotations:
-      materiell_hjemmel: utl-39-1
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      saerlig_kategori: nei
+      realiserer: Soker.soker_familieliv_med
+      designvalg: Relasjonen er lagt på søknaden.
   soknadsgrunnlag:
     title: søknadsgrunnlag
     description: Hvilken familierelasjon søknaden bygger på.
     range: Soknadsgrunnlag
     annotations:
-      materiell_hjemmel: utl-40-1
-      kildeniva: lov
-      behandlingsgrunnlag: utl-83a-1
-      saerlig_kategori: nei
-
+      realiserer: Ekteskap
+      designvalg: Kodeverk som viser hvilken familierelasjon søknaden bygger på.
 enums:
   Soknadsgrunnlag:
     title: Søknadsgrunnlag
@@ -268,4 +199,4 @@ enums:
       ektefelle:
         title: ektefelle
         annotations:
-          materiell_hjemmel: utl-40-1
+          realiserer: Ekteskap

@@ -25,12 +25,15 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 nav:
   - Forside: index.md
-  - Modell og hjemler: modell.md
   - Begreper: begreper.md
+  - Konseptuell modell: konseptuell.md
+  - Logisk modell: logisk.md
   - Regler: regler.md
   - Annotering: annotering.md
   - Kilder: kilder.md
   - Metode:
       - Prøvekjøring på § 40: provekjoring-utl-40.md
       - Navnekonvensjoner: navnekonvensjoner.md
-  - Teknisk dokumentasjon: teknisk/index.md
+  - Teknisk dokumentasjon:
+      - Konseptuell: teknisk/konseptuell/index.md
+      - Logisk: teknisk/logisk/index.md
