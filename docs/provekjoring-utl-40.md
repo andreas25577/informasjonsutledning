@@ -6,7 +6,7 @@ Utkast laget maskinelt 16.11.2026 fra Lovdatas åpne data (lov ajourført 14.11.
 
 1. Gå gjennom `analyse/familieinnvandring/annotering.csv` (51 rader). Sett `status` til `godkjent`, `endret` eller `avvist`, og skriv initialer i `vurdert_av`.
 2. Se over modellen og hjemlene under. Er klasser og attributter riktig forstått, og holder hjemlene?
-3. Vurder funnene nederst.
+3. Vurder spørsmålene nederst, og de interne funnene i `intern/funn-utl-40.md` (ikke i det åpne repoet).
 4. Noter omtrent hvor lang tid gjennomgangen tok.
 
 ## Modellen
@@ -120,10 +120,8 @@ Kilde-ID-ene slås opp i `kilderegister.csv`. `utl-40-1-a` betyr utlendingsloven
 | R-utl-40-12 | utl-40-7 | vilkar | Har referansepersonen inngått ekteskap med flere, kan bare én ektefelle få tillatelse. Tillatelse kan ikke gis når referansepersonen allerede er gift med en person som er bosatt i riket. | nei |
 | R-utl-40-13 | utl-40-7 | vilkar | Tillatelse kan nektes når referansepersonen tidligere har vært gift, og de tidligere ektefellene mest sannsynlig akter å fortsette samlivet. | ja |
 
-## Funn og spørsmål til juristen
+## Spørsmål til juristen
 
-- **er mistenkt eller siktet:** Utlendingsforskriften § 17-8 nevner siktelse, tiltale, straff og anmeldelse, men ikke mistanke uttrykkelig. Juristen vurderer om innhentingshjemmelen dekker «mistenkt».
-- **Uten særskilt innhentingshjemmel:** innehaver, tillatelsestype, danner grunnlag for permanent oppholdstillatelse, søker, stilt i bero, oppholdstillatelse, referanseperson, søknadsgrunnlag. Opplysningene kommer fra søknaden eller fra UDIs egne vedtak. Er det generelle behandlingsgrunnlaget i § 83 a tilstrekkelig?
 - **Skjønnsmessige vurderinger:** Omgåelsesekteskap, risiko for mishandling og særskilte omstendigheter er lagt i regellisten, ikke som attributter. Skal utfallet av slike vurderinger være opplysninger i modellen?
 - **§ 40 første ledd bokstav d:** Kollektiv beskyttelse er tatt med som tillatelsestype, selv om beskyttelse ellers er utenfor piloten.
 - **Term:** Loven beskriver omgåelsesekteskap uten å navngi det. Hvilken term skal brukes?

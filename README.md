@@ -13,7 +13,8 @@ Status: pilot på familieinnvandring. Ingenting her er juridisk validert ennå.
 | `schema/domener/` | Én modell per fagområde |
 | `schema/analyse.yaml` | Skjema som validerer arbeidsfilene |
 | `begreper/` | Begreper som data etter SKOS-AP-NO |
-| `analyse/<fagområde>/` | Avgrensning, kilderegister, annotering, regelliste, hjemmelsmatrise |
+| `analyse/<fagområde>/` | Avgrensning, kilderegister, annotering, regelliste |
+| `verktoy/` | Skript som bygger kilderegister, hjemmelsmatrise og nettsted |
 | `kilder/` | Kildefiler fra Lovdata (ikke i Git) |
 | `generert/`, `docs/` | Generert fra skjemaene |
 
@@ -28,6 +29,22 @@ Piloten er låst til Lovdatas åpne data slik de var ajourført på nedlastingsd
 
 Kilde: Lovdata, åpne data under NLOD 2.0.
 
+## Nettsted
+
+Modellen vises på https://andreas25577.github.io/informasjonsutledning/. Nettstedet bygges og publiseres automatisk ved hver push til `main`.
+
+Bygge lokalt:
+
+```
+pip install -r requirements.txt
+python verktoy/bygg_nettsted.py
+mkdocs serve
+```
+
+## Internt
+
+Mappen `intern/` og hjemmelsmatrisen er ikke med i Git. De inneholder funn som ikke er juridisk vurdert.
+
 ## Validering
 
 ```
@@ -38,4 +55,4 @@ linkml-validate -s schema/felles/skos-ap-no.yaml -C Begrepssamling tests/data/ek
 
 ## Metode
 
-Se `METODE.md` og `docs/navnekonvensjoner.md`.
+Se `docs/navnekonvensjoner.md` og `docs/provekjoring-utl-40.md`.

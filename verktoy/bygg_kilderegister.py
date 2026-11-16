@@ -27,7 +27,7 @@ def punkter(node, prefiks, ut, felles):
             navn = (li.get("data-name") or "").strip().rstrip(".").replace(" ", "").lower()
             navn = re.sub(r"[^0-9a-z]", "", navn) or str(len(ut))
             kid = f"{prefiks}-{navn}"
-            ut.append(dict(felles, kilde_id=kid, punkt=kid.split("-", 3)[-1] if kid.count("-") >= 3 else navn, tekst=egen_tekst(li)))
+            ut.append(dict(felles, kilde_id=kid, punkt=kid[len(felles["_base"]) + 1:], tekst=egen_tekst(li)))
             for art in li.find_all("article", recursive=False):
                 punkter(art, kid, ut, felles)
                 for p in art.find_all("article", class_="legalP", recursive=False):
@@ -55,12 +55,12 @@ def main(avgr, lov, forskrift, utfil):
                       ajourfort=d["ajour"], punkt="")
         for n, ledd in enumerate(art.find_all("article", class_="legalP", recursive=False), 1):
             kid = f"{d['pre']}-{pid}-{n}"
-            f2 = dict(felles, ledd=n)
+            f2 = dict(felles, ledd=n, _base=kid)
             ut.append(dict(f2, kilde_id=kid, tekst=egen_tekst(ledd)))
             punkter(ledd, kid, ut, f2)
     felt = ["kilde_id", "kildeniva", "dokument", "bestemmelse", "ledd", "punkt", "tekst", "eli", "lenke", "ajourfort"]
     with open(utfil, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=felt); w.writeheader(); w.writerows(ut)
+        w = csv.DictWriter(f, fieldnames=felt, extrasaction="ignore"); w.writeheader(); w.writerows(ut)
     print("rader:", len(ut), "mangler:", mangler)
 
 if __name__ == "__main__":

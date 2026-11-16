@@ -169,10 +169,6 @@ slots:
       behandlingsgrunnlag: utl-83a-1
       innhentingshjemmel: utl-85-1 utf-17-8-1
       saerlig_kategori: straffedommer_og_lovovertredelser
-      funn: >-
-        Utlendingsforskriften § 17-8 nevner siktelse, tiltale, straff og
-        anmeldelse, men ikke mistanke uttrykkelig. Juristen vurderer om
-        innhentingshjemmelen dekker «mistenkt».
   ektefeller:
     title: ektefeller
     description: De to personene som er gift med hverandre.

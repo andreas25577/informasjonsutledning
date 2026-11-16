@@ -1,0 +1,36 @@
+site_name: UDI regelverksmodell
+site_description: Konseptuell informasjonsmodell utledet av utlendingsregelverket
+site_url: https://andreas25577.github.io/informasjonsutledning/
+repo_url: https://github.com/andreas25577/informasjonsutledning
+docs_dir: nettsted
+site_dir: site
+theme:
+  name: material
+  language: nb
+  features:
+    - navigation.sections
+    - content.tooltips
+    - search.highlight
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+nav:
+  - Forside: index.md
+  - Modell og hjemler: modell.md
+  - Begreper: begreper.md
+  - Regler: regler.md
+  - Annotering: annotering.md
+  - Kilder: kilder.md
+  - Metode:
+      - Prøvekjøring på § 40: provekjoring-utl-40.md
+      - Navnekonvensjoner: navnekonvensjoner.md
+  - Teknisk dokumentasjon: teknisk/index.md
